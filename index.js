@@ -165,7 +165,6 @@ bot.command('broadcast', async (ctx) => {
         return ctx.reply('⚠️ This command is only for the admin!');
     }
 
-    // Message ka text nikal lo jo /broadcast ke baad likha hoga
     const broadcastText = ctx.message.text.split(' ').slice(1).join(' ');
     if (!broadcastText) {
         return ctx.reply('⚠️ Please provide a message to broadcast.\nExample: `/broadcast Hello everyone, huge discount today!`', { parse_mode: 'Markdown' });
@@ -181,12 +180,10 @@ bot.command('broadcast', async (ctx) => {
 
     ctx.reply(`📢 Broadcast started to ${users.length} users. Please wait...`);
 
-    // Saare users ko ek ek karke message bhejna
     for (const user of users) {
         try {
             await bot.telegram.sendMessage(user.id, `📢 *Announcement:*\n\n${broadcastText}`, { parse_mode: 'Markdown' });
             successCount++;
-            // Chota sa delay taaki Telegram ki rate limit (flood wait) na lage
             await new Promise(resolve => setTimeout(resolve, 50));
         } catch (err) {
             failCount++;
@@ -333,7 +330,7 @@ bot.on('photo', async (ctx) => {
     
     try {
         await ctx.telegram.sendPhoto(ADMIN_ID, ctx.message.photo[ctx.message.photo.length - 1].file_id, {
-            caption: `🚨 *New Payment Screenshot Received!*\n\n👤 User: `${username}` (ID: \`${user.id}\`)\n💬 Caption: ${caption || 'None'}\n\n👉 Contact user or reply directly to deliver items.`,
+            caption: `🚨 *New Payment Screenshot Received!*\n\n👤 User: ${username} (ID: \`${user.id}\`)\n💬 Caption: ${caption || 'None'}\n\n👉 Contact user or reply directly to deliver items.`,
             parse_mode: 'Markdown'
         });
         ctx.reply(t.sentNotice);
@@ -358,7 +355,7 @@ bot.command('bin', (ctx) => {
 });
 
 bot.launch();
-console.log('b4mw3 Market Hub Bot is running with Userlist & Broadcast features...');
+console.log('b4mw3 Market Hub Bot is running smoothly with multi-language support...');
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
