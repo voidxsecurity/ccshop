@@ -1,6 +1,8 @@
 const { Telegraf, Markup } = require('telegraf');
+const fs = require('fs');
+const path = require('path');
 
-// Aapka Naya Bot Token aur Admin Chat ID
+// Aapka Bot Token aur Admin Chat ID
 const BOT_TOKEN = '8997461473:AAFEdBZNr8KAMGEVAFHEj1BQSx0hD3gdf9c';
 const ADMIN_ID = '8153428742';
 
@@ -8,6 +10,37 @@ const ADMIN_ID = '8153428742';
 const bot = new Telegraf(BOT_TOKEN, {
     telegram: { agent: null, timeout: 50000 }
 });
+
+// --- USER TRACKING DATABASE SYSTEM ---
+const DB_FILE = path.join(__dirname, 'users.json');
+
+// Users load karne ka function
+const loadUsers = () => {
+    try {
+        if (fs.existsSync(DB_FILE)) {
+            const data = fs.readFileSync(DB_FILE, 'utf8');
+            return JSON.parse(data);
+        }
+    } catch (err) {
+        console.log('Error reading users db:', err);
+    }
+    return [];
+};
+
+// User save karne ka function
+const saveUser = (user) => {
+    const users = loadUsers();
+    const exists = users.some(u => u.id === user.id);
+    if (!exists) {
+        users.push({
+            id: user.id,
+            username: user.username ? `@${user.username}` : 'No Username',
+            firstName: user.first_name || 'Unknown',
+            date: new Date().toISOString()
+        });
+        fs.writeFileSync(DB_FILE, JSON.stringify(users, null, 2));
+    }
+};
 
 // Translations Dictionary (Multi-Language Support)
 const langData = {
@@ -89,6 +122,8 @@ const getMainMenu = (lang) => {
 };
 
 bot.start((ctx) => {
+    saveUser(ctx.from);
+
     ctx.reply(
         `🌍 *Welcome to 𝐛𝟒𝐦𝐰𝟑 𝐌𝐚𝐫𝐤𝐞𝐭 𝐡𝐮𝐛!*\n\nPlease select your preferred language:`,
         {
@@ -99,6 +134,67 @@ bot.start((ctx) => {
             ])
         }
     );
+});
+
+// --- ADMIN COMMAND: /userlist ---
+bot.command('userlist', (ctx) => {
+    if (String(ctx.from.id) !== String(ADMIN_ID)) {
+        return ctx.reply('⚠️ This command is only for the admin!');
+    }
+
+    const users = loadUsers();
+    if (users.length === 0) {
+        return ctx.reply('📂 No users have started the bot yet.');
+    }
+
+    let message = `📊 *Total Users List (${users.length}):*\n\n`;
+    users.forEach((u, index) => {
+        message += `${index + 1}. *Name:* ${u.firstName}\n   *Username:* ${u.username}\n   *ID:* \`${u.id}\`\n\n`;
+    });
+
+    if (message.length > 4096) {
+        message = message.substring(0, 4090) + '...\n*(List too long)*';
+    }
+
+    ctx.reply(message, { parse_mode: 'Markdown' });
+});
+
+// --- ADMIN COMMAND: /broadcast ---
+bot.command('broadcast', async (ctx) => {
+    if (String(ctx.from.id) !== String(ADMIN_ID)) {
+        return ctx.reply('⚠️ This command is only for the admin!');
+    }
+
+    // Message ka text nikal lo jo /broadcast ke baad likha hoga
+    const broadcastText = ctx.message.text.split(' ').slice(1).join(' ');
+    if (!broadcastText) {
+        return ctx.reply('⚠️ Please provide a message to broadcast.\nExample: `/broadcast Hello everyone, huge discount today!`', { parse_mode: 'Markdown' });
+    }
+
+    const users = loadUsers();
+    if (users.length === 0) {
+        return ctx.reply('📂 No users found to broadcast.');
+    }
+
+    let successCount = 0;
+    let failCount = 0;
+
+    ctx.reply(`📢 Broadcast started to ${users.length} users. Please wait...`);
+
+    // Saare users ko ek ek karke message bhejna
+    for (const user of users) {
+        try {
+            await bot.telegram.sendMessage(user.id, `📢 *Announcement:*\n\n${broadcastText}`, { parse_mode: 'Markdown' });
+            successCount++;
+            // Chota sa delay taaki Telegram ki rate limit (flood wait) na lage
+            await new Promise(resolve => setTimeout(resolve, 50));
+        } catch (err) {
+            failCount++;
+            console.log(`Failed to send message to ${user.id}:`, err.message);
+        }
+    }
+
+    ctx.reply(`✅ *Broadcast Completed!*\n\n• Successfully Sent: ${successCount}\n• Failed (Blocked bot): ${failCount}`, { parse_mode: 'Markdown' });
 });
 
 bot.action(/lang_(.+)/, (ctx) => {
@@ -237,7 +333,7 @@ bot.on('photo', async (ctx) => {
     
     try {
         await ctx.telegram.sendPhoto(ADMIN_ID, ctx.message.photo[ctx.message.photo.length - 1].file_id, {
-            caption: `🚨 *New Payment Screenshot Received!*\n\n👤 User: ${username} (ID: \`${user.id}\`)\n💬 Caption: ${caption || 'None'}\n\n👉 Contact user or reply directly to deliver items.`,
+            caption: `🚨 *New Payment Screenshot Received!*\n\n👤 User: `${username}` (ID: \`${user.id}\`)\n💬 Caption: ${caption || 'None'}\n\n👉 Contact user or reply directly to deliver items.`,
             parse_mode: 'Markdown'
         });
         ctx.reply(t.sentNotice);
@@ -262,7 +358,7 @@ bot.command('bin', (ctx) => {
 });
 
 bot.launch();
-console.log('b4mw3 Market Hub Bot is running smoothly with multi-language support...');
+console.log('b4mw3 Market Hub Bot is running with Userlist & Broadcast features...');
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
