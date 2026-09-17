@@ -27,7 +27,7 @@ const loadUsers = () => {
     return [];
 };
 
-// User save karne ka function
+// User save karne کا function
 const saveUser = (user) => {
     const users = loadUsers();
     const exists = users.some(u => u.id === user.id);
@@ -59,7 +59,7 @@ const langData = {
         binsText: "🎯 *Custom BIN Search*\n\nFormat to search country & specific site:\nExample: Type `/bin US Amazon` to check availability.",
         faqsText: "❓ *FAQs & Trust - 𝐛𝟒𝐦𝐰𝟑 𝐌𝐚𝐫𝐤𝐞𝐭 𝐡𝐮𝐛*\n\n• *Q: Is this legit / Do you provide proof?*\n  A: Yes! Check our official proof channel: t.me/voidxsecurityofficial\n\n• *Q: How long does delivery take?*\n  A: Delivery is done manually right after payment verification (usually 2-5 minutes).\n\n• *Q: How to pay?*\n  A: Send crypto to our USDT/BTC address or Binance ID, then send payment screenshot with `/paymentdone`.",
         contactText: "📞 *Direct Support*\n\nClick below to chat with the owner:",
-        paymentInfo: "📝 *Payment Details:*\n\n• **USDT (BEP20):** `0x89cd5188f8be20b1358247c8ec1f96cac7b59adf`\n• **BTC Address:** `1NoJZhM7L1WcQZf19FPRzcK7e6D5KD8bds`\n• **Binance ID:** `76585865` (Abdul Aziz)\n\n⚠️ *Note:* After payment, send the screenshot here and reply/caption with `/paymentdone`.",
+        paymentInfo: "📝 *Payment Details:*\n\n• **USDT (BEP20):** `0x89cd5188f8be20b1358247c8ec1f96cac7b59adf`\n• **BTC Address:** `1NoJZhM7L1WcQZf19FPRzcK7e6D5KD8bds`\n• **Binance ID:** `736585865` (Abdul Aziz)\n\n⚠️ *Note:* After payment, send the screenshot here and caption with `/paymentdone`.",
         paypalDesc: "🛒 You selected: *PayPal Logs ($70)*\n\n📋 *Log Details Included:*\n• Full Email Access 📥\n• Full Name, Address & DOB 📌\n• Gender Info (Male / Female) 👤\n• Much More Full Info Included! 🔥\n\n",
         cashappDesc: "🛒 You selected: *CashApp Logs ($40)*\n\n📋 *Log Details Included:*\n• Active CashApp Access 💵\n• Linked Bank / Card Info 💳\n• Full Profile Details (Name, DOB, etc.) 📌\n• High Quality & Fresh Logs! 🔥\n\n",
         payButton: "✅ I Have Paid",
@@ -80,7 +80,7 @@ const langData = {
         binsText: "🎯 *بحث BIN مخصص*\nمثال: `/bin US Amazon`",
         faqsText: "❓ *الأسئلة الشائعة والثقة*\nتحقق من قناة الإثباتات: t.me/voidxsecurityofficial",
         contactText: "📞 *الدعم المباشر*\nانقر أدناه للتحدث مع المالك:",
-        paymentInfo: "📝 *تفاصيل الدفع:*\n\n• **USDT (BEP20):** `0x89cd5188f8be20b1358247c8ec1f96cac7b59adf`\n• **BTC:** `1NoJZhM7L1WcQZf19FPRzcK7e6D5KD8bds`\n• **Binance ID:** `76585865`\n\n⚠️ أرسل لقطة الشاشة بعد الدفع مع `/paymentdone`.",
+        paymentInfo: "📝 *تفاصيل الدفع:*\n\n• **USDT (BEP20):** `0x89cd5188f8be20b1358247c8ec1f96cac7b59adf`\n• **BTC:** `1NoJZhM7L1WcQZf19FPRzcK7e6D5KD8bds`\n• **Binance ID:** `736585865`\n\n⚠️ أرسل لقطة الشاشة بعد الدفع مع `/paymentdone`.",
         paypalDesc: "🛒 لقد اخترت: *سجلات PayPal ($70)*\n\n",
         cashappDesc: "🛒 لقد اخترت: *سجلات CashApp ($40)*\n\n",
         payButton: "✅ لقد قمت بالدفع",
@@ -101,7 +101,7 @@ const langData = {
         binsText: "🎯 *کسٹم BIN تلاش*\nمثال: `/bin US Amazon`",
         faqsText: "❓ *FAQs اور ٹرسٹ*\nپروف چینل چیک کریں: t.me/voidxsecurityofficial",
         contactText: "📞 *ڈائریکٹ سپورٹ*\nاونر سے بات کرنے کے لیے کلک کریں:",
-        paymentInfo: "📝 *پیمنٹ ڈیٹیلز:*\n\n• **USDT (BEP20):** `0x89cd5188f8be20b1358247c8ec1f96cac7b59adf`\n• **BTC:** `1NoJZhM7L1WcQZf19FPRzcK7e6D5KD8bds`\n• **Binance ID:** `76585865`\n\n⚠️ پیمنٹ کے بعد اسکرین شاٹ بھیج کر `/paymentdone` لکھیں۔",
+        paymentInfo: "📝 *پیمنٹ ڈیٹیلز:*\n\n• **USDT (BEP20):** `0x89cd5188f8be20b1358247c8ec1f96cac7b59adf`\n• **BTC:** `1NoJZhM7L1WcQZf19FPRzcK7e6D5KD8bds`\n• **Binance ID:** `736585865`\n\n⚠️ پیمنٹ کے بعد اسکرین شاٹ بھیج کر `/paymentdone` لکھیں۔",
         paypalDesc: "🛒 آپ نے منتخب کیا: *PayPal لاگز ($70)*\n\n",
         cashappDesc: "🛒 آپ نے منتخب کیا: *CashApp لاگز ($40)*\n\n",
         payButton: "✅ میں نے پے کر دیا ہے",
@@ -178,7 +178,7 @@ bot.command('broadcast', async (ctx) => {
     let successCount = 0;
     let failCount = 0;
 
-    ctx.reply(`📢 Broadcast started to ${users.length} users. Please wait...`);
+    await ctx.reply(`📢 Broadcast started to ${users.length} users. Please wait...`);
 
     for (const user of users) {
         try {
@@ -194,11 +194,12 @@ bot.command('broadcast', async (ctx) => {
     ctx.reply(`✅ *Broadcast Completed!*\n\n• Successfully Sent: ${successCount}\n• Failed (Blocked bot): ${failCount}`, { parse_mode: 'Markdown' });
 });
 
-bot.action(/lang_(.+)/, (ctx) => {
+bot.action(/lang_(.+)/, async (ctx) => {
     const lang = ctx.match[1];
     userLang[ctx.from.id] = lang;
     const t = langData[lang] || langData.en;
 
+    await ctx.answerCbQuery();
     ctx.reply(t.welcome, {
         parse_mode: 'Markdown',
         ...getMainMenu(lang)
@@ -275,7 +276,7 @@ bot.hears(/(📞 Contact Owner|📞 اتصل بالمالك|📞 اونر سے �
     });
 });
 
-bot.action(['buy_cc_15', 'buy_cc_20', 'buy_cc_30', 'buy_cc_40'], (ctx) => {
+bot.action(['buy_cc_15', 'buy_cc_20', 'buy_cc_30', 'buy_cc_40'], async (ctx) => {
     const lang = userLang[ctx.from.id] || 'en';
     const t = langData[lang];
     let priceTitle = '';
@@ -284,6 +285,7 @@ bot.action(['buy_cc_15', 'buy_cc_20', 'buy_cc_30', 'buy_cc_40'], (ctx) => {
     if (ctx.match[0] === 'buy_cc_30') priceTitle = '$30 CC (Est. Bal: $750+)';
     if (ctx.match[0] === 'buy_cc_40') priceTitle = '$40 CC (Est. Bal: $1200+)';
 
+    await ctx.answerCbQuery();
     ctx.reply(`🛒 You selected: *${priceTitle}*\n\n` + t.paymentInfo, {
         parse_mode: 'Markdown',
         ...Markup.inlineKeyboard([
@@ -292,9 +294,10 @@ bot.action(['buy_cc_15', 'buy_cc_20', 'buy_cc_30', 'buy_cc_40'], (ctx) => {
     });
 });
 
-bot.action('buy_paypal_logs', (ctx) => {
+bot.action('buy_paypal_logs', async (ctx) => {
     const lang = userLang[ctx.from.id] || 'en';
     const t = langData[lang];
+    await ctx.answerCbQuery();
     ctx.reply(t.paypalDesc + t.paymentInfo, {
         parse_mode: 'Markdown',
         ...Markup.inlineKeyboard([
@@ -303,9 +306,10 @@ bot.action('buy_paypal_logs', (ctx) => {
     });
 });
 
-bot.action('buy_cashapp_logs', (ctx) => {
+bot.action('buy_cashapp_logs', async (ctx) => {
     const lang = userLang[ctx.from.id] || 'en';
     const t = langData[lang];
+    await ctx.answerCbQuery();
     ctx.reply(t.cashappDesc + t.paymentInfo, {
         parse_mode: 'Markdown',
         ...Markup.inlineKeyboard([
@@ -314,7 +318,8 @@ bot.action('buy_cashapp_logs', (ctx) => {
     });
 });
 
-bot.action(/paid_(.+)/, (ctx) => {
+bot.action(/paid_(.+)/, async (ctx) => {
+    await ctx.answerCbQuery();
     ctx.reply(
         '📸 Please send your payment **Screenshot (SS)** right here in the chat, and write `/paymentdone` in the caption or reply to your screenshot with `/paymentdone` so admin gets notified instantly.',
         { parse_mode: 'Markdown' }
